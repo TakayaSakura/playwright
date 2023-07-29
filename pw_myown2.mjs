@@ -4,17 +4,25 @@ const { chromium } = require('playwright');
 
 
 (async () => {
+    const sample1 = "あ"//被監査部局〇〇部
+    const sample2 = "い"//〇〇課
+    const sample3 = "う"//システム管理者名
+    const sample4 = "え"//システム名
+    const sample5 = "お"//文書番号
+    const sample6 = "か"//記入日
+    const sample7 = "き"//記入担当者
+
     const browser = await chromium.launch();
     const page = await browser.newPage();
     await page.goto('https://www.grove.kutc.kansai-u.ac.jp/takatsuki/test.html');
-    
+
     for (let i = 1; i <= 7; i++) {
 
         const inputformpass = `body > table:nth-child(4) > tbody > tr:nth-child(${i}) > td > input[type=textbox]`
 
-        const inputvariable = `sample${i}`
+        const inputformvariable = `sample${i}`
 
-        const inputform = `${inputvariable}`
+        const inputform = eval(inputformvariable);
 
         await page.locator(inputformpass).fill(inputform);
     }
@@ -43,11 +51,3 @@ const { chromium } = require('playwright');
     await page.screenshot({path: './test.png', fullPage: true });
     await browser.close();
 })();
-
-const sample1 = "あ"//被監査部局〇〇部
-const sample2 = "い"//〇〇課
-const sample3 = "う"//システム管理者名
-const sample4 = "え"//システム名
-const sample5 = "お"//文書番号
-const sample6 = "か"//記入日
-const sample7 = "き"//記入担当者
